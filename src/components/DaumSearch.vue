@@ -1,10 +1,7 @@
 <template>
     <div>
         <button @click="search">주소 검색</button>
-        <div>{{postCode}}</div>
-        <div>{{address}}</div>
-        <div>{{detailAddress}}</div>
-        <div>{{extraAddr}}</div>
+        <Grid :data="gridData" :columns="gridColums"></Grid>
     </div>
     <div id="wrap" style="">
         <button @click="fold">주소창 닫기</button>
@@ -12,14 +9,22 @@
 </template>
 
 <script>
+import Grid from "./Grid.vue";
+
 export default {
     name: "DaumSearch",
+    components: {
+        Grid,
+    },
     data() {
         return {
-            postCode: "",
-            address: "",
-            detailAddress: "",
-            extraAddr: "",
+            gridColums: ["속성","값"],
+            gridData: [
+                {속성: "우편번호", 값: ""},
+                {속성: "주소", 값: ""},
+                {속성: "상세주소", 값: ""},
+                {속성: "참고항목", 값: ""},
+            ]
         }
     },
     mounted() {
@@ -79,17 +84,17 @@ export default {
                             extraAddr = " (" + extraAddr + ")";
                         }
                         // 조합된 참고항목을 해당 필드에 넣는다.
-                        this.extraAddr = extraAddr;
+                        this.gridData[3].값 = extraAddr;
                     } else {
-                        this.extraAddr = "";
+                        this.gridData[3].값 = "";
                     }
 
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    this.postcode = data.zonecode;
-                    this.address = addr;
+                    this.gridData[0].값 = data.zonecode;
+                    this.gridData[1].값 = addr;
                     // 커서를 상세주소 필드로 이동한다.
                     // this.detailAddress.focus();
-                    this.detailAddress = "";
+                    this.gridData[2].값 = "";
 
                     // iframe을 넣은 element를 안보이게 한다.
                     element_wrap.style.display = "none";
