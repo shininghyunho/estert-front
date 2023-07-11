@@ -26,6 +26,8 @@ table {
   border: 2px solid #42b983;
   border-radius: 3px;
   background-color: #fff;
+  /*center*/
+  margin: 0 auto;
 }
 
 th {

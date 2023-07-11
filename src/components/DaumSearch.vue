@@ -131,5 +131,7 @@ export default {
     height: 300px;
     margin: 5px 0;
     position: relative;
+    /*center*/
+    margin: 0 auto;
 }
 </style>
